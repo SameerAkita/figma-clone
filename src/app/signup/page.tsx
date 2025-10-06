@@ -1,6 +1,13 @@
+'use client'
+
 import Link from "next/link";
+import { useActionState } from "react";
 
 export default function Page() {
+    const [errorMessage, formAction, isPending] = useActionState(
+        register,
+        undefined
+    )
     return (
         <div className="justify-center bg-white flex min-h-screen items-center px-4">
             <div className="w-full max-w-sm space-y-6">
@@ -41,6 +48,8 @@ export default function Page() {
                     <p className="text-center text-xs text-blue-400 hover:text-blue-600">
                         <Link href={"/signin"}>Have an account?</Link>
                     </p>
+
+                    {errorMessage && <p className="text-center text-sm text-red-500">{errorMessage}</p>}
                 </form>
             </div>
         </div>
