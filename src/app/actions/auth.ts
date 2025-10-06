@@ -1,5 +1,6 @@
 'use server'
 
+import { ZodError } from "zod"
 import { signUpSchema } from "~/schemas"
 
 export async function register(
@@ -12,6 +13,8 @@ export async function register(
             password: formData.get("password"),
         })
     } catch (error) {
-        return "ERROR"
+        if (error instanceof ZodError) {
+            return error.errors.map((error) => error.message).join(", ")
+        }
     }    
 }
