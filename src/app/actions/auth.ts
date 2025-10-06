@@ -22,7 +22,7 @@ export async function register(
             }
         })
 
-        if (!user) {
+        if (user) {
             return "User already exists"
         }
 
