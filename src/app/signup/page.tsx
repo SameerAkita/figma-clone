@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
+import { register } from "../actions/auth";
 
 export default function Page() {
     const [errorMessage, formAction, isPending] = useActionState(
@@ -14,7 +15,7 @@ export default function Page() {
                 <h1 className="text-center text-2xl font-semibold text-gray-900">
                     Sign up
                 </h1>
-                <form className="space-y-4">
+                <form action={formAction} className="space-y-4">
                     <div className="relative h-fit">
                         <input 
                             className="rounded-md w-full border border-gray-300 text-sm px-3 pb-1 pt-7 focus:border-black focus:outline-none" 
