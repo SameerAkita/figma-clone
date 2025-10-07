@@ -2,20 +2,22 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
-import { register } from "../actions/auth";
+import { authenticate, register } from "../actions/auth";
 
 export default function Page() {
     const [errorMessage, formAction, isPending] = useActionState(
-        register,
+        authenticate,
         undefined
     )
     return (
         <div className="justify-center bg-white flex min-h-screen items-center px-4">
             <div className="w-full max-w-sm space-y-6">
                 <h1 className="text-center text-2xl font-semibold text-gray-900">
-                    Sign up
+                    Sign in
                 </h1>
                 <form action={formAction} className="space-y-4">
+                    <input type="hidden" name="redirectTo" value="/dashboard" />
+
                     <div className="relative h-fit">
                         <input 
                             className="rounded-md w-full border border-gray-300 text-sm px-3 pb-1 pt-7 focus:border-black focus:outline-none" 
@@ -43,11 +45,11 @@ export default function Page() {
                     </div>
 
                     <button disabled={isPending} className="w-full rounded-md bg-black text-white text-sm py-2 font-medium hover:bg-gray-700 hover:cursor-pointer focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-300">
-                        {isPending ? "Registering..." : "Register"}
+                        {isPending ? "Logging in..." : "Log in"}
                     </button>
 
                     <p className="text-center text-xs text-blue-400 hover:text-blue-600">
-                        <Link href={"/signin"}>Have an account?</Link>
+                        <Link href={"/signup"}>No account? Create one</Link>
                     </p>
 
                     {errorMessage && <p className="text-center text-sm text-red-500">{errorMessage}</p>}
